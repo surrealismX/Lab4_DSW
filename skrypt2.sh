@@ -26,3 +26,28 @@ case "$1" in
         exit 1
         ;;
 esac
+
+# Funkcja klonująca repozytorium
+clone_repo() {
+    git clone <URL repozytorium>
+}
+
+# Funkcja tworząca pliki error
+create_errors() {
+    local count=${1:-100}
+    mkdir -p errorx
+    for ((i=1; i<=$count; i++)); do
+        echo "Error $i, Created by: $0, Date: $(date)" > errorx/error${i}.txt
+    done
+}
+
+# Rozszerzenie obsługi flag
+case "$1" in
+    --init)
+        clone_repo
+        ;;
+    --error | -e)
+        create_errors "$2"
+        ;;
+    # Inne case'y
+esac
